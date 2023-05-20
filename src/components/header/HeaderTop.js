@@ -85,9 +85,9 @@ const HeaderTop = () => {
                   {userState.userName}
                 </span>
               ) : (
-                <Link to="/signin" className="hover:no-underline">
-                  <span className="mdl:hidden py-1 px-2 headerHover text-white font-bold text-[12px] ">
-                    Hello, Sign in
+                <Link to="/signin" className="hover:no-underline ">
+                  <span className="mdl:hidden  py-1 px-2 headerHover text-white font-bold text-[12px] ">
+                    Sign in
                   </span>
                 </Link>
               )}
