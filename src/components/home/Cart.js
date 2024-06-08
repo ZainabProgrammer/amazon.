@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../footer/Footer";
 import HeaderTop from "../header/HeaderTop";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   decrementQty,
@@ -10,27 +10,37 @@ import {
   removeFromCart,
 } from "../../features/ProductsSlice";
 
-const Cart = () => {
+const Cart = ({ searchCategory, setsearchCategory }) => {
   const [items, setitems] = useState([]);
-  const [value, setvalue] = useState(1);
   const [total, settotal] = useState(0);
   const state = useSelector((state) => state.products.cart);
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.products.userInfo);
-
+  const searchText = useSelector((state) => state.products.searchText);
   useEffect(() => {
     localStorage.setItem("state", JSON.stringify(state));
     setitems(state);
     let Total = 0;
     state.map((e) => {
       Total += e.price * e.cartQty;
-      return settotal(Total);
+      return settotal(Total.toFixed(3));
     });
   }, [state]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (searchText?.length > 0) {
+      if (window.location.pathname.includes("cart")) {
+        navigate("/");
+      }
+    }
+    //eslint-disable-next-line
+  }, [searchCategory, searchText]);
 
   return (
     <>
-      <HeaderTop />
+      <HeaderTop
+        searchCategory={searchCategory}
+        setsearchCategory={setsearchCategory}
+      />
 
       {items.length === 0 ? (
         <>
@@ -45,6 +55,7 @@ const Cart = () => {
               <img
                 className="w-[30rem] object-containe md:m-5"
                 src="https://m.media-amazon.com/images/G/01/cart/empty/kettle-desaturated._CB445243794_.svg"
+                alt="img"
               />
               <div className="flex flex-col items-center">
                 <h3 className="text-center">Your Amazon Cart is Empty</h3>
@@ -95,6 +106,7 @@ const Cart = () => {
                         <img
                           className="w-full h-44 object-contain"
                           src={e.images[0]}
+                          alt="img"
                         />
                       </div>
 

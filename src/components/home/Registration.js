@@ -2,7 +2,7 @@ import ArrowRight from "@mui/icons-material/ArrowRight";
 import React, { useState } from "react";
 import { darkLogo } from "../../assets";
 import { RotatingLines } from "react-loader-spinner";
-import { animate, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   getAuth,

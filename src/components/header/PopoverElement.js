@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const MenuPopover = React.forwardRef(({ ...rest }, ref) => (
-  <Popover ref={ref} {...rest} full>
+  <Popover ref={ref} {...rest} full arrow={false}>
     <div className="text-white mdl:inline-flex hidden  items-center flex-col text-sm px-2 py-3 pt-3 ">
       <div id="popoverContent" className=" text-amazon_light p-2 w-96">
         <div className="flex items-center justify-center rounded-md border-b flex-col">

@@ -1,8 +1,8 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "../index.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+//eslint-disable-next-line
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import ProductsSlice from "./ProductsSlice";
 import {

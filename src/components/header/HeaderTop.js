@@ -7,21 +7,15 @@ import HeaderBottom from "./HeaderBottom";
 import PopoverElement from "./PopoverElement";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  logout,
-  searchByCategory,
-  searchByName,
-} from "../../features/ProductsSlice";
+import { logout, searching } from "../../features/ProductsSlice";
 
-const HeaderTop = () => {
+const HeaderTop = ({ searchCategory, setsearchCategory }) => {
   const cartState = useSelector((state) => state.products.cart);
   const userState = useSelector((state) => state.products.userInfo);
   const items = useSelector((state) => state.products.allProducts);
   const [showItems, setshowItems] = useState(false);
-  const [searchTerm, setSearch] = useState("");
-  const [cate, setcate] = useState("");
-
   const [selec, setselec] = useState(true);
+  const searchText = useSelector((state) => state.products.searchText);
 
   const dispatch = useDispatch();
   let uniqueCategories = [...new Set(items.map((item) => item.category))];
@@ -31,14 +25,12 @@ const HeaderTop = () => {
   };
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
-    dispatch(searchByName(e.target.value));
+    dispatch(searching({ searchText: e.target.value }));
   };
 
   const handleCategory = (e) => {
     let value = e.target.value;
-    setcate(value);
-    dispatch(searchByCategory(value));
+    setsearchCategory(value);
     setselec(!selec);
     document.getElementById("searchbar").focus();
   };
@@ -131,7 +123,7 @@ const HeaderTop = () => {
                 <select
                   className="px-0 outline-none border-none bg-gray-200 w-full"
                   onChange={handleCategory}
-                  value={cate}
+                  value={searchCategory}
                 >
                   <option value="all" className="border-none outline-none">
                     All
@@ -162,7 +154,7 @@ const HeaderTop = () => {
             <input
               id="searchbar"
               type="text"
-              value={searchTerm}
+              value={searchText}
               className={
                 selec
                   ? "h-full flex-grow mdl:inline-flex hidden relative outline-none border-none px-2 text-amazon_blue focus:outline-amazon_yellow select-auto"
